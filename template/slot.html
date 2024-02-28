@@ -1,0 +1,659 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous">
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600" />
+        <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,);
+        body,
+        html {
+          padding: 0;
+          margin: 0;
+        }
+        
+        body {
+          overflow-x: hidden;
+          font-family: "Open Sans", sans-serif;
+          font-weight: 300;
+          color: #34495e;
+        }
+        
+        ul {
+          padding: 0;
+          margin: 0;
+          list-style-type: none;
+        }
+        
+        .book-my-seat header {
+          margin: 40px 0;
+          font-size: 44px;
+          font-weight: bold;
+          color: #e74c3c;
+        }
+        
+        .book-my-seat .input-card {
+          display: block;
+        }
+        .book-my-seat .input-card select {
+          top: 0;
+          z-index: 1;
+          float: left;
+          width: auto;
+          padding: 9px 20px;
+          font-size: 14px;
+          font-weight: bold;
+          text-align: left;
+          cursor: pointer;
+          background: #fff;
+          border: 1px solid #aaa;
+          outline: 0;
+          box-shadow: 0 0 0 1px #dfe3e7;
+        }
+        
+        .book-my-seat a,.booking_slots {
+          padding: 0;
+          margin: 0;
+          font-size: 100%;
+          text-decoration: none;
+          vertical-align: baseline;
+          background: 0 0;
+        }
+        
+        .book-my-seat .cta {
+          padding: 10px 15px;
+          margin-top: 20px;
+          font-size: 18px;
+          font-weight: bold;
+          border: 0;
+          outline: 0;
+        }
+        
+        .book-my-seat .proceed {
+          color: #e74c3c;
+          background: white;
+          border: 2px solid #e74c3c;
+          -webkit-transition: all .3s ease-in-out;
+          -moz-transition: all .3s ease-in-out;
+          transition: all .3s ease-in-out;
+        }
+        .book-my-seat .proceed:hover,
+        .book-my-seat .proceed:focus {
+          color: white;
+          background: #e74c3c;
+        }
+        
+        .booking_slots{
+            margin-left: 15px;
+        }
+
+
+        .book-my-seat table a,.booking_slots {
+          display: inline-block;
+          width: 21px;
+          height: 21px;
+          font-size: 12px;
+          font-weight: bold;
+          line-height: 21px;
+          color: #aaa;
+          text-align: center;
+          border-radius: 26%;
+        }
+        
+        .book-my-seat table .available,.booking_slots {
+          cursor: pointer;
+          background: #fff;
+          box-shadow: inset 0 0 0 1px #e74c3c;
+        }
+        .booking_slots:hover {
+            color: white;
+            background: #e74c3c;
+          }
+          
+        .book-my-seat table .available:hover {
+          color: white;
+          background: #e74c3c;
+        }
+
+        
+        
+        .book-my-seat table .selected {
+          color: white;
+          background: #e74c3c;
+        }
+        
+        .book-my-seat table .blocked {
+          color: #aaa;
+          cursor: default;
+          background: #eaeaea;
+          border: 0;
+          box-shadow: 0;
+        }
+        
+        .book-my-seat .seat-row {
+          display: flex;
+          align-content: flex-end
+        }
+        .book-my-seat .seat-row .seat {
+          margin-left: 15px;
+        }
+        
+
+        .navbar {
+            background-color: black;
+        }
+
+        .navbar-brand {
+            font-size: 28px;
+            color: #ff6600;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #ff6600;
+        }
+
+        .nav-link {
+            color: white;
+        }
+
+        .nav-link:hover {
+            color: #ff6600;
+        }
+
+        .btn-primary {
+            background-color: #ff6600;
+            border-color: #ff6600;
+        }
+
+        .btn-primary:hover {
+            background-color: #e65c00;
+            border-color: #e65c00;
+        }
+        .custom_col{
+
+            color: #e65c00;
+        }
+        #bg-img {
+           height: auto;
+           width: fit-content;
+           
+        }
+    
+        #bg-img img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+        .carousel-caption_custom{
+
+       position: absolute;
+        left: 430px;
+        right: 0px;
+        top: 300px;
+        bottom: 0;
+
+        }
+        .custom_color{
+
+             color: #ffffff;
+             -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+     font-size: 50px;
+     font-weight: bold;
+     text-shadow: 0px 10px 10px rgba(255, 255, 255, 0.4);
+
+
+        }
+        .custom_text{
+
+               position: relative;
+              right: 180px;
+              font-weight: bold;
+              -webkit-text-stroke: 1px black;
+             font-size: 25px;
+   color: white;
+   text-shadow:
+       1px 1px 0 #000,
+     -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;
+        }
+        #head{
+
+            font-size: 52px;
+            font-weight: 700;
+        }
+        .customcard{
+            background-color: rgb(255, 255, 255);
+            height: auto;
+            padding: 10px 20px;
+            color: #000;
+            
+        }
+        .customHead{
+         font-weight: 800;
+         font-size: 34px;
+         text-align: center;
+         margin: 10px 0px;
+
+        }
+        .centermain{
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+
+        /* Add any additional custom styles you need here */
+
+    </style>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+        <title>Parking Hub</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand p-3 fs-3 text-white fw-bold"
+                    href="http://127.0.0.1:8000/">PARKING <span
+                        class="custom_col">HUB</span></a>
+                <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse"
+                    id="navbarSupportedContent">
+                    <ul class="navbar-nav m-end justify-content-end w-100 d-flex flex-row align-items-center">
+                        {% if user.is_superuser %}
+                        <li class="nav-item"><a class="nav-link m-2"
+                                href="{% url 'addslot' %}">Add Slot</a></li>
+                        <div class="d-flex justify-content-center">
+                            <a href="{% url 'add_rasperry' %}"
+                                class="btn btn-primary m-2">Add Raspberry</a>
+                            <a href="{% url 'view_rasperry' %}"
+                                class="btn btn-primary m-2">View Raspberry</a>
+                        </div>
+                        <li class="nav-item"><a class="nav-link m-2"
+                                href="http://127.0.0.1:8000/data/">Show Bookings</a></li>
+                        <li class="nav-item"><a class="nav-link m-2"
+                                href="http://127.0.0.1:8000/logout/">Log-out</a></li>
+                        <div class="shadow-lg rounded"><p
+                                class="m-3 text-capitalize text-primary"><i
+                                    class="bi bi-person-fill"></i>
+                                {{user.username}}</p></div>
+                        {% elif user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link m-2"
+                                href="{% url "mybooking" %}">My Bookings</a></li>
+                        <li class="nav-item"><a class="nav-link m-2"
+                                href="http://127.0.0.1:8000/logout/">Log-out</a></li>
+
+                        <li class="d-none d-xl-block">
+                            <a href="{% url 'profile' %}"
+                                class="btn-style1 medium primary"><i
+                                    class="bi bi-person-fill"></i>{{user.username}}</a>
+                        </li>
+                        <!-- <div class="shadow-lg rounded"><p class="m-3 text-capitalize text-primary"><i class="bi bi-person-fill"></i> {{user.username}}</p></div> -->
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link m-2" aria-current="page"
+                                href="http://127.0.0.1:8000/login/">Login</a>
+                        </li>
+                        <li class="nav-item m-2">
+                            <a class="nav-link"
+                                href="http://127.0.0.1:8000/register/">Sign-up</a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container book-my-seat">
+
+            <header>Book your slot..!</header>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="container input-card">
+                        <div class="row">
+                            <!-- <p>
+                                How many seats?
+                            </p> -->
+                            <select id="seats-quantity"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="table-responsive">
+                        
+                        <hr />
+                        <table id="seats-table" class="table"
+                            style="width: auto">
+                           
+                        </table>
+                        <div class="d-flex flex-row mb-3 ms-1">
+                            <div class="jaa">
+                    
+
+                            </div>
+                            <div class="right-side ms-3">
+                            {% if not book1 %}
+                            <a href="http://127.0.0.1:8000/book/1"
+                                class="booking_slots ms-3 text-decoration-none">1</a>
+                            {% endif %}
+                            {% if book1 %}
+                            <div href="http://127.0.0.1:8000/book/1"
+                                class="text-center bg-danger  booking_slots ms-3 text-decoration-none">
+                                1</div>
+                            {% endif %}
+                            {% if not book2 %}
+                            <a href="http://127.0.0.1:8000/book/2"
+                                class=" booking_slots ms-3 text-decoration-none">
+                                2</a>
+                            {% endif %}
+                            {% if book2 %}
+                            <div href="http://127.0.0.1:8000/book/2"
+                                class="text-center bg-danger  booking_slots ms-3 text-decoration-none">
+                                2 </div>
+                            {% endif %}
+                            {% if not book3 %}
+                            <a href="http://127.0.0.1:8000/book/3"
+                                class=" booking_slots ms-3 text-decoration-none">
+                                3</a>
+                            {% endif %}
+                            {% if book3 %}
+                            <div href="http://127.0.0.1:8000/book/3"
+                                class="text-center bg-danger  booking_slots ms-3 text-decoration-none">
+                                3 </div>
+                            {% endif %}
+                            {% if not book4 %}
+                            <a href="http://127.0.0.1:8000/book/4"
+                                class=" booking_slots ms-3 text-decoration-none">
+                                4</a>
+                            {% endif %}
+                            {% if book4 %}
+                            <div href="http://127.0.0.1:8000/book/4"
+                                class="text-center bg-danger  booking_slots ms-3 text-decoration-none">
+                                4 <br></div>
+                            {% endif %}
+                            {% if not book5 %}
+                            <a href="http://127.0.0.1:8000/book/5"
+                                class=" booking_slots ms-3 text-decoration-none">
+                                5</a>
+                            {% endif %}
+                            {% if book5 %}
+                            <div href="http://127.0.0.1:8000/book/5"
+                                class="text-center bg-danger  booking_slots ms-3 text-decoration-none">
+                                5 </div>
+                            {% endif %}
+                            {% if not book6 %}
+                            <a href="http://127.0.0.1:8000/book/6"
+                                class=" booking_slots ms-3 text-decoration-none">
+                                6</a>
+                            {% endif %}
+                            {% if book6 %}
+                            <div href="http://127.0.0.1:8000/book/6"
+                                class="text-center bg-danger  booking_slots ms-3 text-decoration-none">
+                                6</div>
+                            {% endif %}
+                            {% if not book7 %}
+                            <a href="http://127.0.0.1:8000/book/7"
+                                class=" booking_slots ms-3 text-decoration-none">
+                                7</a>
+                            {% endif %}
+                            {% if book7 %}
+                            <div href="http://127.0.0.1:8000/book/7"
+                                class="text-center bg-danger  booking_slots ms-3 text-decoration-none">
+                                7 </div>
+                            {% endif %}
+                            {% if not book8 %}
+                            <a href="http://127.0.0.1:8000/book/8"
+                                class=" booking_slots ms-3 text-decoration-none">
+                                8</a>
+                            {% endif %}
+                            {% if book8 %}
+                            <div href="http://127.0.0.1:8000/book/8"
+                                class="text-center bg-danger  booking_slots ms-3 text-decoration-none">
+                                8 </div>
+                            {% endif %}
+                            {% if not book9 %}
+                            <a href="http://127.0.0.1:8000/book/8"
+                                class=" booking_slots ms-3 text-decoration-none">
+                                9</a>
+                            {% endif %}
+                            {% if not book9 %}
+                            <div href="http://127.0.0.1:8000/book/9"
+                                class="text-center bg-danger  booking_slots ms-3 text-decoration-none">
+                                9 <br>ms-3 text-decoration-none</div>
+                            {% endif %}
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+            <script>const seatsState = {
+            /**
+             * Seat config format:
+             * {
+             *   seatRowLetter: [firstSeatNo, lastSeatNo, blockedSeats, class]
+             * }
+             *
+             * When a class is not specified for a row, presume that it is of the same
+             * class as the previous row.
+             */
+            seatsConfig: {
+              A: [1, 15, [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15], 'EV'],
+              B: [3, 15, [2, 5, 8]],
+              C: [7, 15, [7, 8, 9, 10, 11, 12, 14], 'GASOLINE'],
+              D: [7, 15, [10, 11, 12, 13, 14, 15]],
+              E: [7, 15],
+              F: [7, 15],
+              G: [3, 15, [4, 7, 10, 15]],
+              H: [3, 15],
+              I: [3, 15],
+              
+            },
+          
+            seatsQuantity: 1    ,
+          
+            updateSeatsQuantity(enteredQuantiy) {
+              seatsState.seatsQuantity = enteredQuantiy;
+              seatsState.seatsLeft = enteredQuantiy;
+            },
+          
+            seatsLeft: 1,
+          
+            updateSeatsLeft(action) {
+              switch (action) {
+                case 'INCREMENT':
+                  seatsState.seatsLeft++;
+                  break;
+                case 'DECREMENT':
+                  seatsState.seatsLeft--;
+                  break;
+              }
+            }
+          };
+          
+          const handlers = {
+            handleSeatQuantityChange(event) {
+              seatsState.updateSeatsQuantity(event.target.value);
+          
+              view.displaySeats(seatsState.seatsConfig);
+              view.displaySeatsLeft();
+            },
+          
+            handleSeatSelection(event) {
+              const elementClicked = event.target;
+          
+              const isAnchorTag = elementClicked.tagName === 'A';
+              const isBlocked = elementClicked.classList.contains('blocked');
+              const isSelected = elementClicked.classList.contains('selected');
+              const areSeatsLeft = seatsState.seatsLeft !== 0;
+          
+              if (isAnchorTag && !isBlocked && (areSeatsLeft || isSelected)) {
+                elementClicked.classList.toggle('selected');
+                elementClicked.classList.toggle('available');
+          
+                const action = elementClicked.classList.contains('selected')
+                  ? 'DECREMENT'
+                  : 'INCREMENT';
+                seatsState.updateSeatsLeft(action);
+          
+                let nextSibling = elementClicked.parentNode.nextSibling.firstChild;
+                while (
+                  nextSibling &&
+                  !nextSibling.classList.contains('blocked') &&
+                  seatsState.seatsLeft !== 0
+                ) {
+                  nextSibling.classList.toggle('selected');
+                  nextSibling.classList.toggle('available');
+                  const action = nextSibling.classList.contains('selected')
+                    ? 'DECREMENT'
+                    : 'INCREMENT';
+                  seatsState.updateSeatsLeft(action);
+          
+                  try {
+                    nextSibling = nextSibling.parentNode.nextSibling.firstChild;
+                  } catch (e) {
+                    nextSibling = null;
+                    console.log(
+                      'Ran out of seats in this row. Please select more seats.'
+                    );
+                  }
+                }
+              }
+          
+              view.displaySeatsLeft();
+            }
+          };
+          
+          const view = {
+            displaySeatQuantity(maxQuantity) {
+              const seatQuantitySelect = document.querySelector('#seats-quantity');
+          
+              for (let i = 1; i <= maxQuantity; i++) {
+                const seatQuantityOption = document.createElement('option');
+                seatQuantityOption.value = i;
+                seatQuantityOption.innerHTML = i;
+          
+                seatQuantitySelect.appendChild(seatQuantityOption);
+              }
+            },
+          
+            displaySeatsLeft() {
+              const seatsLeftSpan = document.querySelector('#seats-left');
+              seatsLeftSpan.innerHTML = seatsState.seatsLeft;
+            },
+          
+            displaySeats(seatsConfig) {
+              const seatMatrix = {};
+          
+              Object.keys(seatsConfig).forEach(key => {
+                const rowConfig = seatsConfig[key];
+                let seatRow = [];
+                for (let i = rowConfig[0]; i <= rowConfig[1]; i++) {
+                  seatRow.push(i);
+                }
+                seatMatrix[key] = seatRow;
+              });
+          
+              const seatTable = document.querySelector('#seats-table');
+              seatTable.innerHTML = '';
+          
+              Object.keys(seatMatrix).forEach(seatLetter => {
+                const seatRow = seatMatrix[seatLetter];
+          
+                const seatRowTr = document.createElement('tr');
+                seatRowTr.className = 'row';
+          
+                if (seatsConfig[seatLetter][3]) {
+                  const seatClassH3 = document.createElement('h3');
+                  seatClassH3.innerHTML = seatsConfig[seatLetter][3];
+                  seatRowTr.appendChild(seatClassH3);
+                }
+          
+                const seatColumnTd = document.createElement('td');
+                seatColumnTd.className = 'seat-row';
+          
+                const seatColumnSpan = document.createElement('span');
+                seatColumnSpan.innerHTML = seatLetter;
+                seatColumnTd.appendChild(seatColumnSpan);
+          
+                seatRow.forEach((seatColumn, columnIndex) => {
+                  const seatColumnDiv = document.createElement('div');
+                  seatColumnDiv.className = 'seat';
+          
+                  const seatColumnA = document.createElement('a');
+                  if (
+                    seatsConfig[seatLetter][2] &&
+                    seatsConfig[seatLetter][2].includes(columnIndex + 1)
+                  ) {
+                    seatColumnA.className = 'blocked';
+                  } else {
+                    seatColumnA.className = 'available';
+                  }
+                  seatColumnA.innerHTML = seatColumn;
+                  seatColumnDiv.appendChild(seatColumnA);
+          
+                  seatColumnTd.appendChild(seatColumnDiv);
+                });
+          
+                seatRowTr.appendChild(seatColumnTd);
+                seatTable.appendChild(seatRowTr);
+              });
+            },
+          
+            setupEventListeners() {
+              const seatQuantitySelect = document.querySelector('#seats-quantity');
+              seatQuantitySelect.addEventListener(
+                'change',
+                handlers.handleSeatQuantityChange
+              );
+          
+              const seatsTable = document.querySelector('#seats-table');
+              seatsTable.addEventListener('click', handlers.handleSeatSelection);
+            }
+          };
+          
+          const init = () => {
+            view.displaySeatQuantity(10);
+            view.displaySeats(seatsState.seatsConfig);
+            view.displaySeatsLeft();
+            view.setupEventListeners();
+          };
+          
+          init();
+          </script>
+        </div>
+    </body>
+
+</html>

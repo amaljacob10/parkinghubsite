@@ -1,0 +1,441 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const profilePicInput = document.getElementById('profileimage');
+    
+            profilePicInput.addEventListener('change', function () {
+                const file = this.files[0];
+    
+                if (file) {
+                    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    
+                    if (allowedTypes.includes(file.type)) {
+                        // Valid image file selected
+                        // You can add further logic or display a success message here
+                    } else {
+                        // Invalid file type selected
+                        alert('Please select a valid image file (JPEG, PNG, or GIF).');
+                        this.value = ''; // Clear the input field
+                    }
+                }
+            });
+        });
+        </script>
+
+    <style>
+        body {
+            background-image: url('{% static "img\portfolio\proflebg.jpeg" %}');
+            background-size: cover;
+            background-color: black;
+            background-position: center;
+            height: 50%;
+            background-repeat: no-repeat;
+        }
+
+        .emp-profile {
+            padding: 1%;
+            margin-top: 3%;
+            border-radius: 0.5rem;
+            opacity: 90%;
+            background: #fff;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card input:hover{
+            border: 5px solid #e65c00 !important;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        .custum-file-upload {
+            height: 200px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: space-between;
+            gap: 20px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #cacaca;
+            background-color: rgba(255, 255, 255, 1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0px 48px 35px -48px rgba(0,0,0,0.1);
+          }
+          
+          .custum-file-upload .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          .custum-file-upload .icon svg {
+            height: 80px;
+            fill: rgba(75, 85, 99, 1);
+          }
+          
+          .custum-file-upload .text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          .custum-file-upload .text span {
+            font-weight: 400;
+            color: rgba(75, 85, 99, 1);
+          }
+          
+          .custum-file-upload input {
+            display: none;
+            
+          }
+          .profilepicture {
+            width: 200px; /* Set the desired width */
+            height: 180px; /* Set the desired height */
+            border-radius: 20px; /* Adjust the border-radius to control the curvature of the edges */
+            object-fit: cover; /* Maintain aspect ratio and cover the container */
+            border: 2px solid #fff; /* Optional: Add a border with a white background */
+          }
+            /* Initially, hide the input field */
+input[type="file"] {
+    display: none;
+}
+
+/* Style the label to look like an image with hover effect */
+.profilepicture-label {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: 150px; /* Set the desired width */
+    height: 150px; /* Adjust the height as needed */
+    overflow: hidden;
+}
+
+/* Style the image to fill the label */
+/* Style the image with rounded corners */
+.profilepicture-label img {
+    width: 150px; /* Set the desired width */
+    height: 150px; /* Set the desired height */
+    border-radius: 10%; /* Create a circular shape */
+    border: 2px solid #ccc; /* Add a border if needed */
+}
+
+/* Style the "Choose File" label */
+.file-label {
+    position: absolute;
+    bottom: 10px; /* Adjust the vertical position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none; /* Initially hidden */
+}
+
+/* Show the "Choose File" label when hovering over the label */
+.profilepicture-label:hover .file-label {
+    display: block;
+}
+
+
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-">
+        <div class="container-fluid">
+            <a class="navbar-brand p-3 fs-3 text-white fw-bold"
+                href="http://127.0.0.1:8000/">PARKING <span
+                    class="custom_col">HUB</span></a>
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse"
+                id="navbarSupportedContent">
+                <ul class="navbar-nav m-end justify-content-end align-items-center  w-100">
+                    {% if user.is_superuser %}
+                    <li class="nav-item"><a class="nav-link m-2"
+                            href="{% url 'addslot' %}">Add Slot</a></li>
+                    <div class="d-flex justify-content-center">
+                        <a href="{% url 'add_rasperry' %}"
+                            class="btn btn-primary m-2">Add Raspberry</a>
+                        <a href="{% url 'view_rasperry' %}"
+                            class="btn btn-primary m-2">View Raspberry</a>
+                    </div>
+                    <li class="nav-item"><a class="nav-link m-2"
+                            href="http://127.0.0.1:8000/data/">Show Bookings</a></li>
+                    <li class="nav-item"><a class="nav-link m-2"
+                            href="http://127.0.0.1:8000/logout/">Log-out</a></li>
+                    <div class="shadow-lg rounded"><p
+                            class="m-3 text-capitalize text-primary"><i
+                                class="bi bi-person-fill"></i>
+                            {{user.username}}</p></div>
+                    {% elif user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link m-2"
+                            href="{% url "mybooking" %}">My Bookings</a></li>
+                    <li class="nav-item"><a class="nav-link m-2"
+                            href="http://127.0.0.1:8000/logout/">Log-out</a></li>
+
+                    <li class="d-none d-xl-block">
+                        <a href="{% url 'profile' %}"
+                            class="btn-style1 medium primary text-decoration-none uname"><i
+                                class="bi bi-person-fill"></i>{{user.username}}</a>
+                    </li>
+                    <!-- <div class="shadow-lg rounded"><p class="m-3 text-capitalize text-primary"><i class="bi bi-person-fill"></i> {{user.username}}</p></div> -->
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link m-2" aria-current="page"
+                            href="http://127.0.0.1:8000/login/">Login</a>
+                    </li>
+                    <li class="nav-item m-2">
+                        <a class="nav-link"
+                            href="http://127.0.0.1:8000/register/">Sign-up</a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% if error_message %}
+    <div class="container emp-profile mb-3 bg-dark">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ error_message }}</strong> You should check in on some of those fields below.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% else %}
+        {% endif %}
+        <form method="POST" enctype="multipart/form-data" class="mb-5">
+            {% csrf_token %}
+            <section class="gray pt-5 pb-1">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-9 col-md-8">
+                            <div class="dashboard-body">
+                                <div class="dashboard-wraper">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="submit-page px-0">
+                                                <!-- Basic Information -->
+                                                <div class="card bg-dark">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-white">Basic Information</h5>
+                                                        <div class="d-flex flex-column w-100">
+                                                            <div class="dp d-flex flex-column justify-content-center">
+                                                                <label for="file" class="profilepicture-label">
+                                                                    <img src="{{ user_profile.profilepic.url }}" alt="profile_image" class="profilepicture" id="profileImage">
+                                                                    <span class="file-label">Choose Image</span>
+                                                                </label>
+                                                                <input type="file" id="file" name="profilepic" class="mt-3" accept="image/jpeg, image/png, image/gif" onchange="validateImageFile(this);">
+                                                                
+                                                                <input type="file" id="file" name="profilepic" class="mt-3">
+                                                            </div>
+                                                            
+                                                            <div class="frm_submit_block  mb-5">
+                                                                <div class="frm_submit_wrap">
+                                                                    <div class="row">
+                                                                        
+                                                                        <div class="form-group w-100 pd-20">
+                                                                            <label class="mt-2 mb-1 text-white">Email</label>
+                                                                            <input type="text" name="email" class="form-control w-100"
+                                                                                value="{{ user.email }}" disabled>
+                                                                        </div>
+                                                                        <!-- Add more form fields here -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      
+                                                    </div>
+                                                </div>
+                                                <!-- More cards for additional form sections -->
+                                                <div class="card bg-dark">
+                                                    <div class="card-body ">
+                                                        <h5 class="card-title text-white">Address Information</h5>
+                                                        <div class="frm_submit_block  mb-5">
+                                                            <div class="frm_submit_wrap">
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-6 pd-20">
+                                                                        <label class="mt-2 mb-1 text-white">Address Line 1</label>
+                                                                        <input type="text" id="addressline1" name="addressline1" class="form-control" value="{{ user_profile.addressline1 }}" pattern="[A-Za-z0-9\s]*" title="Only alphanumeric characters and spaces allowed" required>
+                                                                    </div>
+                                                                    
+                                                                    <div class="form-group col-md-6 pd-20">
+                                                                        <label class="mt-2 mb-1 text-white">Address Line 2</label>
+                                                                        <input type="text" id="addressline2" name="addressline2" class="form-control" value="{{ user_profile.addressline2 }}" pattern="[A-Za-z0-9\s]*" title="Only alphanumeric characters and spaces allowed">
+                                                                    </div>
+                                                                    
+                                                                    <div class="form-group col-md-6 pd-20">
+                                                                        <label class="mt-2 mb-1 text-white">City</label>
+                                                                        <input type="text" id="city" name="city" class="form-control" value="{{ user_profile.city }}" pattern="[A-Za-z\s]*" title="Only alphabetic characters and spaces allowed">
+                                                                    </div>
+                                                                    
+                                                                    <div class="form-group col-md-6 pd-20">
+                                                                        <label class="mt-2 mb-1 text-white">District</label>
+                                                                        <input type="text" id="district" name="district" class="form-control" value="{{ user_profile.district }}" pattern="[A-Za-z\s]*" title="Only alphabetic characters and spaces allowed">
+                                                                    </div>
+                                                                    
+                                                                    <div class="form-group col-md-6 pd-20">
+                                                                        <label class="mt-2 mb-1 text-white">State</label>
+                                                                        <input type="text" id="state" name="state" class="form-control" value="{{ user_profile.state }}" pattern="[A-Za-z\s]*" title="Only alphabetic characters and spaces allowed">
+                                                                    </div>
+                                                                    
+                                                                    <div class="form-group col-md-6 pd-20">
+                                                                        <label class="mt-2 mb-1 text-white">Country</label>
+                                                                        <input type="text" id="country" name="country" class="form-control" value="{{ user_profile.country }}" pattern="[A-Za-z\s]*" title="Only alphabetic characters and spaces allowed">
+                                                                    </div>
+                                                                    
+                                                                    <div class="form-group col-md-6 pd-20">
+                                                                        <label class="mt-2 mb-1 text-white">Pin Code</label>
+                                                                        <input type="text" id="pin_code" name="pin_code" class="form-control" value="{{ user_profile.pin_code }}" pattern="[0-9]{6}" title="Pin code must be exactly 6 digits">
+                                                                    </div>
+                                                                    <!-- Add more form fields here -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Submit Button -->
+                                                <div class="form-group col-lg-12 col-md-12 text-center">
+                                                    <button class="btn btn-primary btn-lg" type="submit" style="background-color: #ff6600; border-color: #ff6600;">Update</button>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+    <script>
+        function validateImageFile(input) {
+            const file = input.files[0];
+        
+            if (file) {
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Please select a valid image file (JPEG, PNG, or GIF).');
+                    input.value = ''; // Clear the input field
+                }
+            }
+        }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const profileForm = document.getElementById('profileForm');
+            
+                // Function to check if a string has only alphabetic characters with the first letter capitalized
+                function isValidName(input) {
+                    const namePattern = /^[A-Z][a-zA-Z]*(\s+[a-zA-Z]+)*$/;
+                    // Updated regular expressions for address line 1 and 2
+                            const addressLine1Pattern = /^[A-Za-z0-9\s\-.,'&]+$/;
+                            const addressLine2Pattern = /^[A-Za-z0-9\s\-.,'&]*$/;
+
+                    return namePattern.test(input);
+                }
+    
+            // Function to check if a string contains only numbers and has a maximum length of 6
+            function isValidPinCode(input) {
+                const pinCodePattern = /^[0-9]{1,6}$/;
+                return pinCodePattern.test(input);
+            }
+    
+            profileForm.addEventListener('submit', function (event) {
+                // Add custom validation logic here
+    
+                // Updated JavaScript code for address line 1 and 2 validation
+const addressLine1Input = document.getElementById('addressline1');
+if (!isValidAddressLine(addressLine1Input.value)) {
+    event.preventDefault(); // Prevent form submission
+    alert('Address Line 1 should have only alphanumeric characters, spaces, hyphens, commas, periods, single quotes, and ampersands.');
+    return;
+}
+
+const addressLine2Input = document.getElementById('addressline2');
+if (!isValidAddressLine(addressLine2Input.value)) {
+    event.preventDefault(); // Prevent form submission
+    alert('Address Line 2 should have only alphanumeric characters, spaces, hyphens, commas, periods, single quotes, and ampersands.');
+    return;
+}
+
+    
+                // Validate City
+                const cityInput = document.getElementById('city');
+                if (!isValidName(cityInput.value)) {
+                    event.preventDefault(); // Prevent form submission
+                    alert('City should have only alphabetic characters with the first letter capitalized.');
+                    return;
+                }
+    
+                // Validate District
+                const districtInput = document.getElementById('district');
+                if (!isValidName(districtInput.value)) {
+                    event.preventDefault(); // Prevent form submission
+                    alert('District should have only alphabetic characters with the first letter capitalized.');
+                    return;
+                }
+    
+                // Validate State   
+                const stateInput = document.getElementById('state');
+                if (!isValidName(stateInput.value)) {
+                    event.preventDefault(); // Prevent form submission
+                    alert('State should have only alphabetic characters with the first letter capitalized.');
+                    return;
+                }
+    
+                // Validate Country
+                const countryInput = document.getElementById('country');
+                if (!isValidName(countryInput.value)) {
+                    event.preventDefault(); // Prevent form submission
+                    alert('Country should have only alphabetic characters with the first letter capitalized.');
+                    return;
+                }
+    
+                // Example: Validate Pin Code
+                const pinCodeInput = document.getElementById('pin_code');
+                if (!isValidPinCode(pinCodeInput.value)) {
+                    event.preventDefault(); // Prevent form submission
+                    alert('Pin Code should contain only numbers with a maximum length of 6.');
+                    return;
+                }
+    
+                // Add similar validations for other fields as needed
+            });
+        });
+        </script>
+        
+</body>
+
+</html>

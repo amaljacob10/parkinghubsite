@@ -1,0 +1,17 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Rasperry Entries</title>
+</head>
+<body>
+    <h1>Rasperry Entries</h1>
+    <ul>
+        {% for entry in rasperry_data %}
+            <li>{{ entry.entryvnumber }}</li>
+            <!-- Add other fields you want to display for each entry -->
+        {% endfor %}
+    </ul>
+</body>
+</html>

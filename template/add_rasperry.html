@@ -1,0 +1,17 @@
+<!-- add_rasperry.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Rasperry Entry</title>
+</head>
+<body>
+    <h1>Add Rasperry Entry</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+        input[type="text"],select,input[type="date"]{
+            border-radius: 5px;
+            padding: 5px;
+            border: 1px solid black;
+        }
+
+        .navbar {
+            background-color: black;
+        }
+
+        .navbar-brand {
+            font-size: 28px;
+            color: #ff6600;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #ff6600;
+        }
+
+        .nav-link {
+            color: white;
+        }
+
+        .nav-link:hover {
+            color: #ff6600;
+        }
+
+        .btn-primary {
+            background-color: #ff6600;
+            border-color: #ff6600;
+        }
+
+        .btn-primary:hover {
+            background-color: #e65c00;
+            border-color: #e65c00;
+        }
+        .custom_col{
+
+            color: #e65c00;
+        }
+        #bg-img {
+           height: auto;
+           width: fit-content;
+           
+        }
+    
+        #bg-img img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+        .carousel-caption_custom{
+
+       position: absolute;
+        left: 430px;
+        right: 0px;
+        top: 300px;
+        bottom: 0;
+
+        }
+        .custom_color{
+
+             color: #ffffff;
+             -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+     font-size: 50px;
+     font-weight: bold;
+     text-shadow: 0px 10px 10px rgba(255, 255, 255, 0.4);
+
+
+        }
+        .custom_text{
+
+               position: relative;
+              right: 180px;
+              font-weight: bold;
+              -webkit-text-stroke: 1px black;
+             font-size: 25px;
+   color: white;
+   text-shadow:
+       1px 1px 0 #000,
+     -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;
+        }
+        #head{
+
+            font-size: 52px;
+            font-weight: 700;
+        }
+        .customcard{
+            background-color: rgb(255, 255, 255);
+            height: auto;
+            padding: 10px 20px;
+            color: #000;
+            
+        }
+        .customHead{
+         font-weight: 800;
+         font-size: 34px;
+         text-align: center;
+         margin: 10px 0px;
+
+        }
+        .centermain{
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+.uname{
+    color: #e65c00;
+}
+
+    </style>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous">
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+        <title>Document</title>
+
+    </head>
+    <body style="background-color: #000;" >
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand p-3 fs-3 text-white fw-bold"
+                    href="http://127.0.0.1:8000/">PARKING <span
+                        class="custom_col">HUB</span></a>
+                <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse"
+                    id="navbarSupportedContent">
+                    <ul
+                        class="navbar-nav m-end justify-content-end align-items-center  w-100">
+                        {% if user.is_superuser %}
+                        <li class="nav-item"><a class="nav-link m-2 text-light "
+                                href="{% url 'addslot' %}">Add Slot</a></li>
+                        <div class="d-flex justify-content-center">
+                            <a href="{% url 'add_rasperry' %}"
+                                class="btn btn-primary m-2">Add Raspberry</a>
+                            <a href="{% url 'view_rasperry' %}"
+                                class="btn btn-primary m-2">View Raspberry</a>
+                        </div>
+                        <li class="nav-item"><a class="nav-link m-2 text-light"
+                                href="http://127.0.0.1:8000/data/">Show Bookings</a></li>
+                        <li class="nav-item"><a class="nav-link m-2 text-light"
+                                href="http://127.0.0.1:8000/logout/">Log-out</a></li>
+                        <div class="shadow-lg rounded"><p
+                                class="m-3 text-capitalize text-primary"><i
+                                    class="bi bi-person-fill"></i>
+                                {{user.username}}</p></div>
+                        {% elif user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link m-2 text-light"
+                                href="{% url "mybooking" %}">My Bookings</a></li>
+                        <li class="nav-item"><a class="nav-link m-2 text-light"
+                                href="http://127.0.0.1:8000/logout/">Log-out</a></li>
+
+                        <li class="d-none d-xl-block">
+                            <a href="{% url 'profile' %}"
+                                class="btn-style1 medium primary text-decoration-none uname"><i
+                                    class="bi bi-person-fill"></i>{{user.username}}</a>
+                        </li>
+                        <!-- <div class="shadow-lg rounded"><p class="m-3 text-capitalize text-primary"><i class="bi bi-person-fill"></i> {{user.username}}</p></div> -->
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link m-2 text-light" aria-current="page"
+                                href="http://127.0.0.1:8000/login/">Login</a>
+                        </li>
+                        <li class="nav-item m-2">
+                            <a class="nav-link"
+                                href="http://127.0.0.1:8000/register/">Sign-up</a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+
+        <div class="d-flex justify-content-center " >
+
+            <div
+                class="d-flex flex-lg-row flex-column rounded col-lg-6 col-12 shadow-lg mt-lg-5">
+                <div class="left2 col-lg-4 col-12"></div>
+                <form action="{% url 'book' slot  %}" method="POST"
+                    class="right1 col-lg-8 col-12 d-flex flex-column p-5" style="background-color: #ffffff;">
+                    {% csrf_token %}
+                    <h1>Booking</h1>
+                    {{ form.as_table }}
+                    <button class="btn btn-success mt-4" type="submit">Register</button>
+                </form>
+
+            </div>
+
+        </div>
+    </body>
+    
+</html>
